@@ -1,3 +1,6 @@
+# TrueGritVinyls
+
+Category: Forensics/web
 
 You are presented with a web app and given the hint "Have you tried enumerating the site?" Enumerating a site can include a variety of things including finding hidden directories, checking for XSS, SSTI, and command injection. Most commonly, researchers attempt to enumerate hidden directories first to get an idea of their attack surface. 
 
