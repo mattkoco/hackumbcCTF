@@ -29,7 +29,7 @@ Below is a sample JS code sequence to get admin and redirect to the /admin endpo
 The /admin endpoint shows a google drive link which links to a file which contains a disk. 
 
 
-The disk file is a standard vmdk file. Use `autopsy` or `FTK imager` to view the disk file. Once you have dome some basic searching, you come across a wav file:
+The disk file is a standard vmdk file. Use `autopsy` or `FTK imager` to view the disk file. Once you have done some basic searching, you come across a wav file:
 
 
 <img width="1026" height="353" alt="image" src="https://github.com/user-attachments/assets/5a37b407-ce96-438c-8657-2e5b49043e62" />
