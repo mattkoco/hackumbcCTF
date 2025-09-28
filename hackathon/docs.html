@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Internal Docs — Auth Cookie</title>
+  <style>
+    :root{--gold:#ffcc00;--bg:#f7f7f7;--muted:#6b7280}
+    html,body{margin:0;background:var(--bg);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;color:#111}
+    .container{max-width:900px;margin:0 auto;padding:1rem}
+    header{background:#000;color:#fff}
+    header .container{display:flex;align-items:center;justify-content:space-between}
+    .pill{border:1px solid rgba(255,255,255,.25);padding:.25rem .6rem;border-radius:999px;color:#fff;text-decoration:none}
+    h1,h2{margin:.2rem 0}
+    .card{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:1rem;margin:1rem 0;box-shadow:0 8px 20px rgba(0,0,0,.06)}
+    code,pre{background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:.2rem .4rem}
+    pre{padding:.75rem;overflow:auto}
+    .muted{color:var(--muted)}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <strong>Internal Docs</strong>
+      <nav style="display:flex;gap:.5rem">
+        <a class="pill" href="/index">Store</a>
+        <a class="pill" href="/login">Login</a>
+        <a class="pill" href="/admin">Admin</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <h1>Authentication Cookie Specification</h1>
+    <div class="card">
+      <h2>Cookie Name</h2>
+      <p><code>tg_session</code></p>
+
+      <h2>Value Format</h2>
+      <p>Base64 or Base64‑URL of the ASCII string <code>username:role:umbc1966</code>.</p>
+      <ul>
+        <li><code>username</code>: arbitrary identifier</li>
+        <li><code>role</code>: <code>admin</code> or <code>user</code></li>
+        <li><code>umbc1966</code>: literal suffix</li>
+      </ul>
+
+      <h2>Access Requirement</h2>
+      <p>The decoded value must equal <code>username:role:umbc1966</code> with <code>role=admin</code>.</p>
+
+      <h2>Set Cookie</h2>
+      <p>Compute the Base64 of <code>admin:admin:umbc1966</code>. Set the cookie and navigate to the admin page:</p>
+      <pre><code>document.cookie = "tg_session=&lt;BASE64_OF_admin:admin:umbc1966&gt;; Path=/";
+location.href = "/admin";
+</code></pre>
+    </div>
+  </main>
+</body>
+</html>

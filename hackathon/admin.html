@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin — True Grit Vinyl</title>
+  <style>
+    :root{--gold:#ffcc00;--bg:#f7f7f7;--muted:#6b7280}
+    html,body{margin:0;background:var(--bg);font:16px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;color:#111}
+    .container{max-width:900px;margin:0 auto;padding:1rem}
+    header{background:#000;color:#fff}
+    header .container{display:flex;align-items:center;justify-content:space-between}
+    a{color:inherit}
+    .card{background:#fff;border:1px solid #e5e7eb;border-radius:14px;box-shadow:0 12px 30px rgba(0,0,0,.06);padding:1rem;margin-top:1rem}
+    .btn{border:1px solid #e5e7eb;background:#fff;border-radius:10px;padding:.5rem .75rem;cursor:pointer}
+    .btn.primary{background:var(--gold);border-color:#e6b800;font-weight:700}
+    .muted{color:var(--muted)}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <strong>Admin</strong>
+      <form id="logoutForm"><button class="btn" type="submit">Log out</button></form>
+    </div>
+  </header>
+  <main class="container">
+    <div class="card">
+      <h2 style="margin-top:0">Documents</h2>
+      <p class="muted">Internal link:</p>
+      <p>
+        <a href="https://drive.google.com/drive/folders/1-PLACEHOLDER-LINK"
+           target="_blank" rel="noopener">Google Drive</a>
+      </p>
+    </div>
+  </main>
+  <script>
+    document.getElementById('logoutForm').addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      await fetch('/api/logout', {method:'POST', credentials:'include'});
+      localStorage.removeItem('tg_isAdmin');
+      location.href='/index';
+    });
+  </script>
+</body>
+</html>

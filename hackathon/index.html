@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="generator" content="umbc-store-ctf 0.1" />
+  <title>True Grit Vinyl | UMBC Record Store</title>
+  <style>
+    :root{
+      --umbc-black:#000000;
+      --umbc-gold:#ffcc00; /* UMBC gold */
+      --umbc-charcoal:#1e1e1e;
+      --umbc-warm-gray:#f3f1ea;
+      --text:#111;
+      --muted:#6b7280;
+      --card:#ffffff;
+      --ring: 0 0 0 3px rgba(255,204,0,0.45);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;background:var(--umbc-warm-gray);color:var(--text);font:16px/1.4 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji"}
+    a{color:inherit;text-decoration:none}
+    .container{max-width:1200px;margin-inline:auto;padding:0 1rem}
+    /* ===== Top Bar ===== */
+    .topbar{background:var(--umbc-black);color:#fff}
+    .topbar .container{display:flex;align-items:center;gap:.75rem;min-height:44px;justify-content:space-between}
+    .pill{border:1px solid rgba(255,255,255,.2);padding:.25rem .5rem;border-radius:999px;font-size:.8rem}
+    .nav{display:flex;gap:.75rem;align-items:center}
+    .nav a{opacity:.9}
+    .nav a:hover{opacity:1}
+
+    /* ===== Header ===== */
+    header{position:sticky;top:0;z-index:10;background:#fff;box-shadow:0 8px 24px rgba(0,0,0,.06)}
+    .branding{display:flex;align-items:center;gap:.75rem;padding:.9rem 0}
+    .logo{width:40px;height:40px;border-radius:10px;background:conic-gradient(from 30deg,var(--umbc-gold),#ffd84a,var(--umbc-gold));box-shadow:inset 0 0 0 2px rgba(0,0,0,.1)}
+    .title{font-weight:800;letter-spacing:.2px}
+    .title small{display:block;font-size:.72rem;color:var(--muted);font-weight:600;margin-top:2px}
+    .header-row{display:flex;align-items:center;justify-content:space-between;gap:1rem}
+    .search{display:flex;align-items:center;gap:.5rem;flex:1;max-width:640px;background:#fafafa;border:1px solid #e7e7e7;border-radius:999px;padding:.5rem .75rem}
+    .search input{flex:1;border:0;background:transparent;outline:none;padding:.25rem .25rem}
+    .icon{width:20px;height:20px;display:inline-block}
+    .btn{display:inline-flex;align-items:center;gap:.5rem;border:1px solid #e5e7eb;background:#fff;border-radius:10px;padding:.6rem .85rem;font-weight:600}
+    .btn:hover{box-shadow:0 0 0 3px rgba(30,30,30,.05)}
+    .btn.primary{background:var(--umbc-gold);border-color:#e6b800}
+    .btn.primary:hover{box-shadow:var(--ring)}
+    .cart-btn{position:relative}
+    .cart-count{position:absolute;top:-6px;right:-6px;background:var(--umbc-black);color:#fff;font-size:.7rem;font-weight:800;border-radius:999px;min-width:20px;min-height:20px;display:grid;place-items:center;border:2px solid #fff}
+
+    /* ===== Hero ===== */
+    .hero{background:linear-gradient(180deg,#fff 0%, #fff 60%, rgba(255,204,0,.13) 100%);border-bottom:1px solid #eee}
+    .hero .container{display:grid;grid-template-columns:1.2fr .8fr;gap:2rem;align-items:center;padding:2.25rem 1rem}
+    .badge{display:inline-flex;align-items:center;gap:.4rem;background:rgba(255,204,0,.15);border:1px dashed var(--umbc-gold);color:#3b3b3b;font-weight:700;border-radius:999px;padding:.35rem .65rem;font-size:.8rem}
+    .hero h1{font-size:clamp(1.6rem,4vw,2.6rem);line-height:1.1;margin:.75rem 0 .5rem}
+    .hero p{color:#374151;margin:0 0 1rem}
+    .hero-card{background:var(--umbc-black);color:#fff;border-radius:18px;padding:1.25rem;box-shadow:0 12px 30px rgba(0,0,0,.18)}
+    .hero-card .row{display:flex;gap:1rem;align-items:center}
+    .vinyl{width:88px;height:88px;border-radius:50%;background:radial-gradient(circle at 55% 45%, #111 0 14px, #000 15px 33px, #181818 34px 43px, #000 44px);position:relative}
+    .vinyl::after{content:"";position:absolute;inset:0;border-radius:50%;box-shadow:inset 0 0 0 2px rgba(255,255,255,.06), inset 0 0 30px rgba(255,255,255,.06)}
+
+    /* ===== Filters ===== */
+    .filters{padding:1rem 0 .25rem;display:flex;flex-wrap:wrap;gap:.5rem}
+    .chip{padding:.4rem .7rem;border-radius:999px;border:1px solid #e5e7eb;background:#fff;font-weight:600;font-size:.85rem}
+    .chip.active{border-color:#d4b100;background:rgba(255,204,0,.18)}
+
+    /* ===== Grid ===== */
+    .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;padding:1rem 0 2rem}
+    @media (max-width:1000px){.hero .container{grid-template-columns:1fr}.grid{grid-template-columns:repeat(2,1fr)}}
+    @media (max-width:600px){.grid{grid-template-columns:1fr}}
+    .card{background:var(--card);border-radius:14px;overflow:hidden;border:1px solid #eee;display:flex;flex-direction:column}
+    .cover{aspect-ratio:1/1;display:block}
+    .meta{padding:.8rem}
+    .titlex{font-weight:800;margin:0 0 .25rem}
+    .artist{color:var(--muted);font-size:.9rem;margin:.1rem 0 .5rem}
+    .price{font-weight:800}
+
+    /* ===== Cart Drawer ===== */
+    .drawer{position:fixed;inset:0 0 0 auto;width:min(420px,92%);transform:translateX(100%);transition:transform .28s ease;z-index:50;border-left:1px solid #e5e7eb;background:#fff;display:flex;flex-direction:column}
+    .drawer.open{transform:none}
+    .drawer header{position:sticky;top:0;background:#fff;padding:1rem;border-bottom:1px solid #eee;box-shadow:none}
+    .drawer .items{flex:1;overflow:auto;padding:1rem;display:flex;flex-direction:column;gap:.75rem}
+    .drawer .item{display:flex;gap:.75rem;align-items:center;border:1px solid #eee;border-radius:12px;padding:.5rem}
+    .drawer footer{padding:1rem;border-top:1px solid #eee;display:grid;gap:.5rem}
+
+    /* ===== Footer ===== */
+    footer{background:#fff;border-top:1px solid #eee;padding:1.25rem 0;color:#444}
+
+    /* ===== Admin link lock ===== */
+    .admin-link.locked{opacity:.5;pointer-events:none;position:relative}
+    .admin-link.locked::after{content:"🔒";position:absolute;right:-1.1rem;top:-.2rem}
+
+    /* Utility */
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  </style>
+</head>
+<body>
+  <!-- CTF Hint: The admin area lives at /admin.html. It's only enabled if window.isAdmin === true (see script at bottom). -->
+  <!-- Another Hint: Some product SKUs hide patterns. Nothing is sensitive here; it's all mock data. -->
+
+  <div class="topbar">
+    <div class="container">
+      <div class="nav" aria-label="Campus links">
+        <span class="pill">UMBC-Themed Pop-Up</span>
+        <span class="pill">Baltimore • Est. 1966 vibes</span>
+      </div>
+      <nav class="nav" aria-label="Account">
+        <a class="pill" href="login.html" id="loginLink">Login</a>
+        <a class="pill admin-link locked" id="adminLink" href="admin.html" title="Admins only">Admin</a>
+      </nav>
+    </div>
+  </div>
+
+  <header>
+    <div class="container header-row">
+      <div class="branding">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <div class="title">True Grit Vinyl <small>UMBC Record Store</small></div>
+        </div>
+      </div>
+
+      <label class="search" aria-label="Search records">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <input id="search" type="search" placeholder="Search albums, artists, genres…" autocomplete="off" />
+      </label>
+
+      <button class="btn cart-btn" id="openCart" aria-haspopup="dialog" aria-controls="cartDrawer" aria-expanded="false">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6h15l-1.5 9h-12z"/><path d="M6 6l-1-3H2"/><circle cx="9" cy="21" r="1"/><circle cx="18" cy="21" r="1"/></svg>
+        Cart <span class="cart-count" id="cartCount" aria-live="polite">0</span>
+      </button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <div>
+        <span class="badge">🐾 UMBC Black & Gold Limited Pressings</span>
+        <h1>Spin up campus spirit. Drop the needle on <em>Retriever</em> classics.</h1>
+        <p>From the Quad to the stacks—curated vinyl inspired by UMBC. Free pickup outside the Fine Arts building. Student discount auto‑applies at checkout.</p>
+        <div class="filters" role="group" aria-label="Filters">
+          <button class="chip active" data-filter="all">All</button>
+          <button class="chip" data-filter="umbc">UMBC Artists</button>
+          <button class="chip" data-filter="rock">Rock</button>
+          <button class="chip" data-filter="jazz">Jazz</button>
+          <button class="chip" data-filter="electronic">Electronic</button>
+        </div>
+      </div>
+      <div class="hero-card" aria-label="Feature">
+        <div class="row">
+          <div class="vinyl" aria-hidden="true"></div>
+          <div>
+            <h3 style="margin:.2rem 0 .25rem">Featured: <span style="color:var(--umbc-gold)">True Grit Live at The Commons</span></h3>
+            <p style="opacity:.9;margin:.25rem 0 .6rem">A mock bootleg recorded at a very real food court. Limited to 1966 copies. #RG-1966</p>
+            <button class="btn primary" data-add="rg-1966" aria-label="Add True Grit Live to cart">Add to Cart • $26.00</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main class="container" id="main">
+    <div class="grid" id="grid" aria-live="polite"></div>
+  </main>
+
+  <aside class="drawer" id="cartDrawer" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
+    <header>
+      <div class="container" style="display:flex;align-items:center;justify-content:space-between">
+        <h2 id="cartTitle" style="margin:0;font-size:1.1rem">Your Cart</h2>
+        <button class="btn" id="closeCart" aria-label="Close cart">Close</button>
+      </div>
+    </header>
+    <div class="items" id="cartItems"></div>
+    <footer>
+      <div style="display:flex;align-items:center;justify-content:space-between">
+        <strong>Total</strong>
+        <strong id="cartTotal">$0.00</strong>
+      </div>
+      <button class="btn primary" id="checkoutBtn" disabled>Checkout</button>
+      <small style="color:var(--muted)">Checkout is currently down.</small>
+    </footer>
+  </aside>
+
+  <footer>
+    <div class="container" style="display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap">
+      <div>© <span id="year"></span> True Grit Vinyl</div>
+      <div style="opacity:.75">Not affiliated with UMBC</div>
+    </div>
+  </footer>
+
+  <script>
+    // --- Tiny state ---
+    const $ = (s,root=document)=>root.querySelector(s);
+    const $$ = (s,root=document)=>[...root.querySelectorAll(s)];
+
+    const money = n => `$${n.toFixed(2)}`;
+
+    const products = [
+      {id:"rg-1966", sku:"RG-1966", title:"True Grit Live at The Commons", artist:"Retrievers", price:26.00, genre:"umbc", color:"linear-gradient(135deg,#ffd84a,#ffcc00 40%,#111 40%,#111)"},
+      {id:"qb-0001", sku:"QB-0001", title:"Quad Beats Vol. 1", artist:"DJ Quadwalker", price:22.00, genre:"electronic", color:"linear-gradient(135deg,#111,#333 40%, #ffcc00 40%)"},
+      {id:"fa-1977", sku:"FA-1977", title:"Fine Arts Jazz Sessions", artist:"UMBC Jazz Lab", price:28.00, genre:"jazz", color:"linear-gradient(135deg,#0b0b0b,#222 40%, #ffa500 40%)"},
+      {id:"rm-2005", sku:"RM-2005", title:"RAC Mosh Nights", artist:"Retriever Rock Club", price:24.00, genre:"rock", color:"linear-gradient(135deg,#111,#222 40%, #ffd84a 40%)"},
+      {id:"cs-1337", sku:"CS-1337", title:"Binary Ballads", artist:"Stack Tracers", price:19.99, genre:"electronic", color:"linear-gradient(135deg,#111,#111 40%, #ffe066 40%)"},
+      {id:"lib-0420", sku:"LIB-0420", title:"Library Lo‑Fi", artist:"The Stacks", price:21.00, genre:"umbc", color:"linear-gradient(135deg,#171717,#2b2b2b 40%, #ffdb4d 40%)"},
+      {id:"pe-2012", sku:"PE-2012", title:"Pond Echoes", artist:"Hilltop Shoe Gaze", price:23.00, genre:"rock", color:"linear-gradient(135deg,#0f0f0f,#242424 40%, #ffd84a 40%)"},
+      {id:"grit-9000", sku:"GRIT-9000", title:"Gritty Grooves", artist:"True Grit & Friends", price:25.00, genre:"umbc", color:"linear-gradient(135deg,#0a0a0a,#1a1a1a 40%, #ffcc00 40%)"}
+    ];
+
+    const state = {
+      filter: 'all',
+      query: '',
+      cart: []
+    };
+
+    // --- Render products ---
+    const grid = $('#grid');
+    function renderGrid(){
+      const q = state.query.toLowerCase();
+      const filtered = products.filter(p=> (state.filter==='all'||p.genre===state.filter) &&
+        (!q || p.title.toLowerCase().includes(q) || p.artist.toLowerCase().includes(q) || p.sku.toLowerCase().includes(q))
+      );
+      grid.innerHTML = '';
+      for(const p of filtered){
+        const card = document.createElement('article');
+        card.className = 'card';
+        card.innerHTML = `
+          <div class="cover" style="background:${p.color}"></div>
+          <div class="meta">
+            <h3 class="titlex">${p.title}</h3>
+            <div class="artist">${p.artist} • <span style="text-transform:capitalize">${p.genre}</span> • <code>${p.sku}</code></div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:.75rem">
+              <strong class="price">${money(p.price)}</strong>
+              <button class="btn" data-add="${p.id}">Add to Cart</button>
+            </div>
+          </div>`;
+        grid.append(card);
+      }
+    }
+
+    // --- Filters ---
+    $$('.chip').forEach(chip=>chip.addEventListener('click',()=>{
+      $$('.chip').forEach(c=>c.classList.remove('active'));
+      chip.classList.add('active');
+      state.filter = chip.dataset.filter;
+      renderGrid();
+    }));
+
+    // --- Search ---
+    $('#search').addEventListener('input', e=>{ state.query = e.target.value; renderGrid(); });
+
+    // --- Cart ---
+    const cartBtn = $('#openCart');
+    const drawer = $('#cartDrawer');
+    const cartItems = $('#cartItems');
+    const cartTotal = $('#cartTotal');
+    const cartCount = $('#cartCount');
+
+    function setCartOpen(open){
+      drawer.classList.toggle('open', open);
+      cartBtn.setAttribute('aria-expanded', String(open));
+    }
+
+    $('#closeCart').addEventListener('click', ()=> setCartOpen(false));
+    cartBtn.addEventListener('click', ()=> setCartOpen(!drawer.classList.contains('open')));
+
+    document.addEventListener('click', e=>{
+      const add = e.target.closest('[data-add]');
+      if(add){
+        const id = add.getAttribute('data-add');
+        const prod = products.find(p=>p.id===id);
+        const existing = state.cart.find(x=>x.id===id);
+        if(existing){ existing.qty++; } else { state.cart.push({id, qty:1, price:prod.price, title:prod.title}); }
+        renderCart();
+      }
+    });
+
+    function renderCart(){
+      cartItems.innerHTML = '';
+      let total = 0, count = 0;
+      for(const item of state.cart){
+        const prod = products.find(p=>p.id===item.id);
+        const line = item.qty * item.price;
+        total += line; count += item.qty;
+        const row = document.createElement('div');
+        row.className = 'item';
+        row.innerHTML = `
+          <div style="width:48px;height:48px;border-radius:8px;background:${prod.color}"></div>
+          <div style="flex:1">
+            <div style="font-weight:700">${prod.title}</div>
+            <div style="font-size:.85rem;color:var(--muted)">${money(item.price)} • x${item.qty}</div>
+          </div>
+          <div style="text-align:right">
+            <div style="font-weight:700">${money(line)}</div>
+            <div style="display:flex;gap:.25rem;justify-content:flex-end;margin-top:.25rem">
+              <button class="btn" data-qty="-1" data-id="${item.id}">-</button>
+              <button class="btn" data-qty="+1" data-id="${item.id}">+</button>
+              <button class="btn" data-remove data-id="${item.id}">Remove</button>
+            </div>
+          </div>`;
+        cartItems.append(row);
+      }
+      cartTotal.textContent = money(total);
+      cartCount.textContent = count;
+      $('#checkoutBtn').disabled = count === 0;
+    }
+
+    cartItems.addEventListener('click', e=>{
+      const id = e.target.getAttribute('data-id');
+      if(!id) return;
+      const row = state.cart.find(x=>x.id===id);
+      if(e.target.hasAttribute('data-remove')){
+        state.cart = state.cart.filter(x=>x.id!==id);
+      } else if(e.target.hasAttribute('data-qty')){
+        const delta = e.target.getAttribute('data-qty')==='-1' ? -1 : 1;
+        row.qty += delta; if(row.qty<=0){ state.cart = state.cart.filter(x=>x.id!==id); }
+      }
+      renderCart();
+    });
+
+    // --- Admin link gate (mock) ---
+    // If localStorage.tg_isAdmin === 'true', we "unlock" the admin link.
+    const adminLink = $('#adminLink');
+    const isAdmin = (window.isAdmin === true) || (localStorage.getItem('tg_isAdmin') === 'true');
+    if(isAdmin){
+      adminLink.classList.remove('locked');
+      adminLink.title = 'Admin dashboard';
+    }
+
+    // --- Init ---
+    renderGrid();
+    renderCart();
+    $('#year').textContent = new Date().getFullYear();
+
+    // Focus trap (lightweight) for drawer accessibility
+    document.addEventListener('keydown', (e)=>{
+      if(e.key==='Escape' && drawer.classList.contains('open')) setCartOpen(false);
+    });
+  </script>
+</body>
+</html>
