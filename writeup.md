@@ -40,4 +40,4 @@ The disk file is a standard vmdk file. Use `autopsy` or `FTK imager` to view the
 
 Export the WAV file. At first, you will hear a lot of static and noise which you may not recognized. This is SSTV! SSTV is a method of transmitting static images over radio waves by converting the image data into a series of audio tones. You can use many decoders online. Once decoded, you get the flag!
 
-Final Flag: hackUMBC{you_are_super_gritty_6767}
+Final Flag: `hackUMBC{you_are_super_gritty_6767}`
